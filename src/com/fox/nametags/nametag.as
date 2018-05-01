@@ -11,6 +11,7 @@ class com.fox.nametags.nametag{
 	public static function main(swfRoot:MovieClip):Void{
 		var s_app = new nametag(swfRoot);
 		swfRoot.onLoad = function () {s_app.Hook()};
+		swfRoot.onUnload = function () {s_app.Exit()};
 	}
 	public function nametag() { }
 	public function Hook(){
@@ -31,6 +32,9 @@ class com.fox.nametags.nametag{
 				return tag
 			}
 		}
+	}
+	public function Exit(){
+		NametagClick.SignalChanged.Disconnect(ChangeTarget, this);
 	}
 	private function ChangeTarget(dv:DistributedValue){
 		var PlayerdID:ID32 = dv.GetValue();
