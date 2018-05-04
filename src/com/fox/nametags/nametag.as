@@ -15,13 +15,14 @@ class com.fox.nametags.nametag{
 	}
 	public function nametag() { }
 	public function Hook(){
-		NametagClick = DistributedValue.Create("NametagClicked");
-		NametagClick.SignalChanged.Connect(ChangeTarget, this);
-		if (!_root.nametagcontroller.CreateNametag){
+		NametagController = _root.nametagcontroller;
+		if (!NametagController.CreateNametag){
 			setTimeout(Delegate.create(this, Hook), 100);
 			return
 		}
-		NametagController = _root.nametagcontroller;
+		NametagClick = DistributedValue.Create("NametagClicked");
+		//this should take care of all the new tags
+		NametagClick.SignalChanged.Connect(ChangeTarget, this);
 		if (!NametagController._CreateNametag){
 			NametagController._CreateNametag = NametagController.CreateNametag;
 			NametagController.CreateNametag = function (characterID) {
@@ -32,15 +33,25 @@ class com.fox.nametags.nametag{
 				return tag
 			}
 		}
+		//hook the ones we missed
+		for (var i in NametagController.m_NametagArray){
+			var tag = NametagController.m_NametagArray[i];
+			HookTag(tag);
+		}
+	}
+	private function HookTag(tag){
+		tag.onPress = Delegate.create(this, function () {
+			DistributedValueBase.SetDValue("NametagClicked", tag.m_DynelID);
+		});
 	}
 	public function Exit(){
 		NametagClick.SignalChanged.Disconnect(ChangeTarget, this);
 	}
 	private function ChangeTarget(dv:DistributedValue){
-		var PlayerdID:ID32 = dv.GetValue();
-		if (PlayerdID){
-			if(PlayerdID.IsPlayer()){
-				TargetingInterface.SetTarget(PlayerdID);
+		var ID:ID32 = dv.GetValue();
+		if (ID){
+			if(ID.IsPlayer()){
+				TargetingInterface.SetTarget(ID);
 			}
 			dv.SetValue(false);
 		}
