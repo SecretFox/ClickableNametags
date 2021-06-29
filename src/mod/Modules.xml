@@ -2,7 +2,7 @@
 <Root>
   <Module  name = "ClickableNametags"
     movie       = "ClickableNametags\ClickableNametags.swf"
-    flags       = ""
+    flags       = "GMF_DONT_UNLOAD"
     depth_layer = "Top"
     sub_depth   = "2"
     variable    = "ClickableNametags"
