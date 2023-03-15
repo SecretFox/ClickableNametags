@@ -1,9 +1,10 @@
+[![Downloads](https://img.shields.io/github/downloads/SecretFox/ClickableNametags/total?style=for-the-badge)](https://github.com/SecretFox/ClickableNametags/releases)  
 # ClickableNametags
-Allows selecting players by clicking on their nametags, you will find two versions in the Releases section.  
-Left-click: Only lets you left click the nametags.  
-Both: Lets you left-click or right-click (to open "friendlymenu") nametags, right-click menu should support SWLRP mod.  
+Allows selecting players by clicking on their nametags.  
 
+## Settings  
+`/option ClickableNametags_AllowRightClick false`[default:true] Disables right clicking nametags to open "friendlymenu"  
+`/option ClickableNametags_AllowNPC true`[default:false] Enables clicking NPC tags  
 
-Currently doesn't support clicking on NPC's or pets...should it?  
-[![alt text](https://i.imgur.com/812P61A.png "Download")](https://github.com/SecretFox/ClickableNametags/releases)  
-Install: unzip to `SWL\Data\Gui\Custom\Flash`
+## Install:
+unzip to `Secret World Legends\Data\Gui\Custom\Flash`, .swf path should t hen be `Flash\ClickableNametags\ClickableNametags.swf`
